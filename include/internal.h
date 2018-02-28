@@ -26,32 +26,32 @@
 
 namespace cpuxe {
 
-	typedef uint64_t QWORD;
-	typedef uint32_t DWORD;
-	typedef uint16_t WORD;
-	typedef uint8_t BYTE;
+    typedef uint64_t QWORD;
+    typedef uint32_t DWORD;
+    typedef uint16_t WORD;
+    typedef uint8_t BYTE;
 
-	enum TARGET {
-		x86_32,
-		x86_64,
-		x86_32_intel,
-		x86_64_intel,
-		x86_32_nacl,
-		x86_64_nacl,
-	};
+    enum TARGET {
+        x86_32,
+        x86_64,
+        x86_32_intel,
+        x86_64_intel,
+        x86_32_nacl,
+        x86_64_nacl,
+    };
 
-	enum ARCH {
-		pe_i386,
-		pei_i386,
-		elf32_i386,
-		elf32_little,
-		elf32_big,
-		srec,
-		symbolsrec,
-		verilog,
-		tekhex,
-		binary,
-		ihex
-	};
+    enum ARCH {
+        pe_i386,
+        pei_i386,
+        elf32_i386,
+        elf32_little,
+        elf32_big,
+        srec,
+        symbolsrec,
+        verilog,
+        tekhex,
+        binary,
+        ihex
+    };
 
 }
