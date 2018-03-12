@@ -1,5 +1,5 @@
-#ifndef CPUXE_X86_H
-#define CPUXE_X86_H
+#ifndef CPUXE_X86_64_H
+#define CPUXE_X86_64_H
 
 
 #include <cstdint>
@@ -11,7 +11,7 @@
 
 namespace cpuxe {
 
-    struct Reg8 {
+    struct Reg8_X86 {
         void operator=(BYTE data) {
             value = data;
         }
@@ -23,7 +23,7 @@ namespace cpuxe {
         BYTE value;
     };
 
-    struct Reg16 {
+    struct Reg16_X86 {
         void operator=(WORD data) {
             value = data;
         }
@@ -37,13 +37,13 @@ namespace cpuxe {
 
             struct
             {
-                Reg8 low;
-                Reg8 high;
+                Reg8_X86 low;
+                Reg8_X86 high;
             };
         };
     };
 
-    struct Reg32 {
+    struct Reg32_X86 {
 
         void operator=(DWORD data) {
             value = data;
@@ -58,8 +58,8 @@ namespace cpuxe {
 
             struct
             {
-                Reg16 low;
-                Reg16 X;
+                Reg16_X86 low;
+                Reg16_X86 X;
             };
         };
 
@@ -67,7 +67,7 @@ namespace cpuxe {
 
     };
 
-    struct Reg64 {
+    struct Reg64_X86 {
 
         void operator=(QWORD data) {
             value = data;
@@ -83,14 +83,14 @@ namespace cpuxe {
 
             struct
             {
-                Reg32 low;
-                Reg32 X;
+                Reg32_X86 low;
+                Reg32_X86 X;
             };
         };
 
     };
 
-    union RFLAGS_Reg {
+    union RFLAGS_Reg_X86 {
 
         QWORD data;
 
@@ -127,7 +127,7 @@ namespace cpuxe {
 
     };
 
-    union MXCSR_Reg {
+    union MXCSR_Reg_X86 {
 
         DWORD data;
 
@@ -157,9 +157,16 @@ namespace cpuxe {
 
     };
 
-    typedef QWORD MMX_Reg;
+    struct MMX_Reg_X86 {
 
-    union FPUX80_Reg {
+        QWORD value;
+
+        void operator=(BYTE data) {
+            value = data;
+        }
+    };
+
+    union FPUX80_Reg_X86 {
 
         struct
         {
@@ -169,7 +176,7 @@ namespace cpuxe {
 
         union {
 
-            MMX_Reg mmx;
+            MMX_Reg_X86 mmx;
 
             struct
             {
@@ -226,11 +233,11 @@ namespace cpuxe {
     typedef WORD Status_reg;
     typedef WORD Tag_reg;
 
-    class CPUXE_X86
+    class CPUXE_X86_64
     {
     public:
-        CPUXE_X86(ARCH arch = ARCH::pe_i386, TARGET target = TARGET::x86_64);
-        virtual ~CPUXE_X86();
+        CPUXE_X86_64(ARCH arch = ARCH::pe_i386, TARGET target = TARGET::x86_64);
+        virtual ~CPUXE_X86_64();
 
         void set_rax(const QWORD &value);
         void set_rbx(const QWORD &value);
@@ -381,22 +388,22 @@ namespace cpuxe {
 
     private:
         /*General-Purpose Registers*/
-        Reg64 RAX_T;
-        Reg64 RBX_T;
-        Reg64 RCX_T;
-        Reg64 RDX_T;
-        Reg64 RBP_T;
-        Reg64 RSI_T;
-        Reg64 RDI_T;
-        Reg64 RSP_T;
-        Reg64 R8_T;
-        Reg64 R9_T;
-        Reg64 R10_T;
-        Reg64 R11_T;
-        Reg64 R12_T;
-        Reg64 R13_T;
-        Reg64 R14_T;
-        Reg64 R15_T;
+        Reg64_X86 RAX_T;
+        Reg64_X86 RBX_T;
+        Reg64_X86 RCX_T;
+        Reg64_X86 RDX_T;
+        Reg64_X86 RBP_T;
+        Reg64_X86 RSI_T;
+        Reg64_X86 RDI_T;
+        Reg64_X86 RSP_T;
+        Reg64_X86 R8_T;
+        Reg64_X86 R9_T;
+        Reg64_X86 R10_T;
+        Reg64_X86 R11_T;
+        Reg64_X86 R12_T;
+        Reg64_X86 R13_T;
+        Reg64_X86 R14_T;
+        Reg64_X86 R15_T;
 
         /*Segment Registers*/
         Segment_Reg CS;
@@ -407,20 +414,20 @@ namespace cpuxe {
         Segment_Reg GS;
 
         /*RFLAGS register*/
-        RFLAGS_Reg RFLAGS_T;
+        RFLAGS_Reg_X86 RFLAGS_T;
 
         /*instruction pointer register*/
-        Reg64 RIP_T;
+        Reg64_X86 RIP_T;
 
         /*FPU register*/
-        FPUX80_Reg ST0_T;
-        FPUX80_Reg ST1_T;
-        FPUX80_Reg ST2_T;
-        FPUX80_Reg ST3_T;
-        FPUX80_Reg ST4_T;
-        FPUX80_Reg ST5_T;
-        FPUX80_Reg ST6_T;
-        FPUX80_Reg ST7_T;
+        FPUX80_Reg_X86 ST0_T;
+        FPUX80_Reg_X86 ST1_T;
+        FPUX80_Reg_X86 ST2_T;
+        FPUX80_Reg_X86 ST3_T;
+        FPUX80_Reg_X86 ST4_T;
+        FPUX80_Reg_X86 ST5_T;
+        FPUX80_Reg_X86 ST6_T;
+        FPUX80_Reg_X86 ST7_T;
 
         Status_reg SR_T; //Status Register
         Tag_reg TR_T; //Tag Register
@@ -480,7 +487,7 @@ namespace cpuxe {
         ZMM_Reg ZMM30_T;
         ZMM_Reg ZMM31_T;
 
-        MXCSR_Reg MXCSR_T; //MXCSR Register
+        MXCSR_Reg_X86 MXCSR_T; //MXCSR Register
 
 
 #ifdef _WINDOWS_
@@ -489,14 +496,14 @@ namespace cpuxe {
         ARCH arch;
         TARGET target;
 
-        void PrintStatusGeneralRegister(std::string name, Reg64 reg);
+        void PrintStatusGeneralRegister(std::string name, Reg64_X86 reg);
         void PrintStatusSegmentRegister(std::string name, Segment_Reg reg);
         void PrintStatusFlagRegister(std::string name, QWORD reg);
         void PrintStatusFlag(std::string name, BYTE reg);
-        void PrintFPUregister(std::string name, FPUX80_Reg reg);
-        void PrintMMXregister(std::string name, MMX_Reg reg);
+        void PrintFPUregister(std::string name, FPUX80_Reg_X86 reg);
+        void PrintMMXregister(std::string name, MMX_Reg_X86 reg);
         BOOL setTextColor(HANDLE h, int foregound, int background);
     };
 }
 
-#endif // CPUXE_X86_H
+#endif // CPUXE_X86_64_H
